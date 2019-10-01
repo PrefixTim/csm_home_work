@@ -1,5 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
 # Compiled class file
 *.class
 
@@ -40,3 +47,10 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
+gradle/
+gradlew
+gradlew.bat
+lab4/build/generated/
+lab4/build/tmp/
+lab4/src/main/resources/
+lab4/src/test/resources/
