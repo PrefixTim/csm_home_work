@@ -1,5 +1,6 @@
 import panels.CrossPanel;
-import panels.SievePanel;
+import panels.Fig4_20;
+import panels.Fig4_21;
 
 /**
  * Tim Malko
@@ -7,8 +8,11 @@ import panels.SievePanel;
  */
 public class App {
     public static void main(String[] args) {
-        //window with "Simple 2-D Drawing" Fig. 4.20
-        new Window(new SievePanel(40), 1440, 720);
-        new Window(new CrossPanel(),1440, 720);
+        // window with "Simple 2-D Drawing" Fig. 4.21
+        new Window(new Fig4_21(40), 1440, 720);
+        // window with "Simple 2-D Drawing" Fig. 4.20
+        new Window(new Fig4_20(40), 1440, 720);
+        // window with two cross
+        new Window(new CrossPanel(), 1440, 720);
     }
 }
