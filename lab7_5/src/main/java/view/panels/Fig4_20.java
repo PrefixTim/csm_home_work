@@ -2,6 +2,7 @@ package view.panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.IntStream;
 
 /**
  * Panel which drawing "Simple 2-D Drawing" Fig. 4.20
@@ -39,10 +40,8 @@ public class Fig4_20 extends JPanel {
      * @param y0 coordinate y to start rays
      */
     private void drawRays(Graphics g, int x0, int y0) {
-        for (int i = 0; i < n; i++) {
-            g.drawLine(x0, y0, getWidth() * ((getWidth() == x0 && getHeight() == y0) || (x0 == 0 && y0 == 0) ? n - i : i) / n,
-                    getHeight() * i / n);
-        }
+        IntStream.range(0, n).forEach(i -> g.drawLine(x0, y0, getWidth() * ((getWidth() == x0 && getHeight() == y0) || (x0 == 0 && y0 == 0) ? n - i : i) / n,
+                getHeight() * i / n));
     }
 }
 

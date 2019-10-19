@@ -25,10 +25,10 @@ public class Fig4_21 extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         for (int i = 0; i < n; i++) {
-            g.drawLine(getWidth(), getHeight() / n * i, getWidth() / n * i, 0);
-            g.drawLine(0, getHeight() / n * (n - i), getWidth() / n * i, 0);
-            g.drawLine(getWidth() / n * i, getHeight(), getWidth(), getHeight() / n * (n - i));
-            g.drawLine(getWidth() / n * i, getHeight(), 0, getHeight() / n * i);
+            g.drawLine(getWidth(), getHeight() * i / n, getWidth() * i / n, 0);
+            g.drawLine(0, getHeight() * (n - i) / n , getWidth() * i / n, 0);
+            g.drawLine(getWidth()* i / n , getHeight(), getWidth(), getHeight() * (n - i) / n );
+            g.drawLine(getWidth() * i / n , getHeight(), 0, getHeight() * i / n );
         }
     }
 }

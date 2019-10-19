@@ -6,4 +6,8 @@ include 'lab7'
 include 'experiments'
 include 'lab7_5'
 include 'lab8'
+include 'lab9'
+include 'lab10'
+include 'exam'
+include 'lab10'
 
