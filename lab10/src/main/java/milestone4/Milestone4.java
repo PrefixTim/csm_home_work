@@ -11,14 +11,13 @@ public class Milestone4 extends JFrame {
     /**
      * Creates a windows with gray background and one panel
      *
-     * @param width  width of the window
-     * @param height height of the window
+     * @param d dimension of width and height of the window
      */
-    public Milestone4(int n, int width, int height) {
+    public Milestone4(int n, Dimension d) {
         DrawPanel panel = new DrawPanel(n);
         panel.setBackground(Color.gray);
         add(panel);
-        setSize(width, height);
+        setSize(d);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 }

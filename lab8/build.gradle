@@ -5,7 +5,12 @@ plugins {
 group 'cis'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 12
+
+
+compileJava.options.encoding = 'UTF-16'
+compileTestJava.options.encoding = 'UTF-16'
+javadoc.options.encoding = 'UTF-16'
 
 repositories {
     mavenCentral()
