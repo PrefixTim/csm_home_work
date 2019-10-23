@@ -1,6 +1,4 @@
-package lab11.game.prompter;
-
-import lab11.game.prompter.AggressionLevel;
+package lab11.game.ui.prompter;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
