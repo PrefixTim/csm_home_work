@@ -10,5 +10,7 @@ include 'lab9'
 include 'lab10'
 include 'exam'
 include 'lab10'
+include 'lab13'
 include 'lab11'
+include 'lab12'
 

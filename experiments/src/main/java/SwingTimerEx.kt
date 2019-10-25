@@ -1,30 +1,35 @@
-import java.awt.EventQueue;
-import javax.swing.JFrame;
+import java.awt.EventQueue
+import javax.swing.JFrame
 
-public class SwingTimerEx extends JFrame {
+class SwingTimerEx : JFrame() {
+    init {
 
-    public SwingTimerEx() {
-
-        initUI();
+        initUI()
     }
 
-    private void initUI() {
+    private fun initUI() {
 
-        add(new Board());
+        add(Board())
 
-        setResizable(false);
-        pack();
+        isResizable = false
+        pack()
 
-        setTitle("Star");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        title = "Star"
+        setLocationRelativeTo(null)
+        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
     }
 
-    public static void main(String[] args) {
+    internal external fun ssf(s: Int)
 
-        EventQueue.invokeLater(() -> {
-            SwingTimerEx ex = new SwingTimerEx();
-            ex.setVisible(true);
-        });
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+
+            EventQueue.invokeLater {
+                val ex = SwingTimerEx()
+                ex.isVisible = true
+            }
+        }
     }
 }
