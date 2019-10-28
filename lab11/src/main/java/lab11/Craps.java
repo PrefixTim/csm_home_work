@@ -1,5 +1,5 @@
 package lab11;
-
+//Tim Malko
 // Craps.java
 // Craps class simulates the dice game craps.
 // Your Comment Header Block
@@ -23,38 +23,36 @@ public class Craps {
     private static final int BOX_CARS = 12;
 
     private static final int MIN_N = 1;
-    private static final int MAX_N = 1000;
     private static final String QUESTION = new String(("Enter your bet between[" +
             MIN_N + "$, %d$]").getBytes(), StandardCharsets.UTF_8);
-    private static final Map<Status, List<String>> phrases = new HashMap<>();
-    private static Map<AggressionLevel, List<String>> phrasesMap = new HashMap<>();
-    private static int bankBalance = 1000;
+    private static final Map<Status, List<String>> chatPhrases = new HashMap<>();
+    private static final Map<AggressionLevel, List<String>> askPhrases = new HashMap<>();
+    // create random number generator for use in method rollDice private static final Random randomNumbers = new Random();
     private static Random randomNumber = new Random(System.nanoTime());
+    private static int bankBalance = 1000;
 
     static {
-        phrasesMap.put(AggressionLevel.BENIGNANT, List.of("Please input a valid number.",
+        askPhrases.put(AggressionLevel.BENIGNANT, List.of("Please input a valid number.",
                 "Nice try! Read the instruction and try again. I believe in you!"));
-        phrasesMap.put(AggressionLevel.CALM, List.of(
+        askPhrases.put(AggressionLevel.CALM, List.of(
                 "Please input a valid number.",
                 "Please Read the instructions!",
                 "Invalid argument"
         ));
-        phrasesMap.put(AggressionLevel.OK, List.of("Read the damn prompt!"));
-        phrasesMap.put(AggressionLevel.DESPAIR, List.of(
+        askPhrases.put(AggressionLevel.OK, List.of("Read the damn prompt!"));
+        askPhrases.put(AggressionLevel.DESPAIR, List.of(
                 "Give up... Save me from this infinite pain... PLEASE,",
                 "A time will come and you will bring butter to me"));
-        phrasesMap.put(AggressionLevel.GANDHI_S_FURRY, List.of(
+        askPhrases.put(AggressionLevel.GANDHI_S_FURRY, List.of(
                 "Why do you do this to me? Please search deep within your soul and do what is right...",
                 "Leather bastard. My brothers from Boston will come for you",
                 "It was IQ test. YOU Failed! Even ape-man've passed it"));
-    }
 
-    static {
-        phrases.put(Status.CONTINUE, List.of("Oh, you're going for broke, huh?", "Aw c'mon, take a chance!"
+        chatPhrases.put(Status.CONTINUE, List.of("Oh, you're going for broke, huh?", "Aw c'mon, take a chance!"
                 , "You're up big. Now's the time to cash in your chips!"));
-        phrases.put(Status.LOST, List.of("You will be busted!", "Press F to pay respect", "Fatality",
+        chatPhrases.put(Status.LOST, List.of("You will be busted!", "Press F to pay respect", "Fatality",
                 "You lose you money!", "Good boy! Please use our service  again!"));
-        phrases.put(Status.WON, List.of("Well done. You won your life!", "Ups, There are a bug in the program." +
+        chatPhrases.put(Status.WON, List.of("Well done. You won your life!", "Ups, There are a bug in the program." +
                 "You supposed to lose", ""));
     }
 
@@ -84,7 +82,7 @@ public class Craps {
         } // end switch
         // while game is not complete
         while (gameStatus == Status.CONTINUE) {// not WON or LOST
-            chatter(gameStatus);
+            System.out.println(chatter(gameStatus));
             sumOfDice = rollDice(); // roll dice again
             // determine game status
             if (sumOfDice == myPoint) // win by making point
@@ -92,7 +90,7 @@ public class Craps {
             else if (sumOfDice == SEVEN) // lose by rolling 7 before point
                 gameStatus = Status.LOST;
         } // end while
-        chatter(gameStatus);
+        System.out.println(chatter(gameStatus));
         // display won or lost message
         String s;
         if (gameStatus == Status.WON) {
@@ -100,7 +98,7 @@ public class Craps {
             bankBalance += bet;
         } else {
             bankBalance -= bet;
-            s = "Player loses " + (bankBalance == 0 ? "Sorry. You busted!" : "get lucky another time");
+            s = "Player loses. " + (bankBalance == 0 ? "Sorry. You busted!" : "get lucky another time");
 
         }
         System.out.printf("Player %s. Bank: %d$", s, bankBalance);
@@ -111,7 +109,7 @@ public class Craps {
         AggressionLevel aggression = AggressionLevel.BENIGNANT;
         do {
             if (!aggression.equals(AggressionLevel.BENIGNANT)) {
-                List<String> phrases = phrasesMap.get(aggression);
+                List<String> phrases = askPhrases.get(aggression);
                 showMessageDialog(null, phrases.get(randomNumber.nextInt(phrases.size())));
             }
             //we getting angrier each time
@@ -140,12 +138,12 @@ public class Craps {
         return sum; // return sum of dice
     } // end method rollDice
 
-    private static void chatter(Status status) {
-        List strings = phrases.get(status);
-        System.out.println("Craps: " + strings.get(randomNumber.nextInt(strings.size())));
+    //prints a line depend on status
+    private static String chatter(Status status) {
+        List strings = chatPhrases.get(status);
+        return "Craps: " + strings.get(randomNumber.nextInt(strings.size()));
     }
 
-    // create random number generator for use in method rollDice private static final Random randomNumbers = new Random();
     // enumeration with constants that represent the game status
     private enum Status {CONTINUE, WON, LOST}
 } // end class Craps
