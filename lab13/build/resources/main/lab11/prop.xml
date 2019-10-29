@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>props</comment>
+    <entry key="window.width">1080</entry>
+    <entry key="window.height">720</entry>
+    <entry key="ui.title">Craps</entry>
+    <entry key="ui.icon">imgs\logo2.jpg</entry>
+    <entry key="ui.play_btn.start">Roll</entry>
+    <entry key="ui.play_btn.game">Roll</entry>
+    <entry key="ui.play_btn.end">play again</entry>
+</properties>
