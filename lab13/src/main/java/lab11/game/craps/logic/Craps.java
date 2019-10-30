@@ -1,9 +1,11 @@
 package lab11.game.craps.logic;
 
-import lab11.game.craps.dice.Dice;
+import lab11.game.craps.dices.Dice;
+import lab11.game.craps.dices.FairDice;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static lab11.game.craps.logic.GameStatus.*;
 
@@ -17,10 +19,25 @@ public class Craps {
     private int point;
     private List<Dice> dices;
 
-    public Craps(Dice...  dices) {
-        this.dices = Arrays.asList(dices);
+    public Craps(Dice... dices) {
+        this(Arrays.asList(dices));
+    }
+
+    public Craps(List<Dice> dices) {
+        this.dices = dices;
         gameStatus = BEGINING;
         point = 0;
+    }
+
+    public static void main(String[] args) {
+        Craps craps = new Craps(new FairDice(6));
+        do {
+//            ArrayList
+            craps.play();
+            System.out.println(craps.point);
+            System.out.println(craps.dices);
+            System.out.println(craps.gameStatus);
+        } while (craps.getGameStatus().equals(CONTINUE));
     }
 
     public void play() {
@@ -28,10 +45,7 @@ public class Craps {
             return;
 
         // calculating sum of all dices
-        int sumOfDice = 0;
-        for (Dice dice : dices) {
-            sumOfDice += dice.rollDice();
-        }
+        int sumOfDice = rollDices().stream().mapToInt(Integer::intValue).sum();
 
         if (gameStatus == BEGINING) { //first round checks by first rounds rules
             switch (sumOfDice) {
@@ -55,6 +69,10 @@ public class Craps {
             else if (sumOfDice == SEVEN) //if
                 gameStatus = GameStatus.LOST;
         }
+    }
+
+    private List<Integer> rollDices() {
+        return dices.stream().map(Dice<Integer>::rollDice).collect(Collectors.toList());
     }
 
     public List<Dice> getDices() {
