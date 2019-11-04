@@ -1,4 +1,6 @@
-package lab12;// Lab 10: GarageTest.java
+package lab12;
+// Tim Malko
+// Lab 10: GarageTest.java
 // Test application for class Garage
 
 public class GarageTest
