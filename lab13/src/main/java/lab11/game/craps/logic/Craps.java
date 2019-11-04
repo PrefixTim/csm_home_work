@@ -1,7 +1,6 @@
 package lab11.game.craps.logic;
 
 import lab11.game.craps.dices.Dice;
-import lab11.game.craps.dices.FairDice;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,19 +24,8 @@ public class Craps {
 
     public Craps(List<Dice> dices) {
         this.dices = dices;
-        gameStatus = BEGINING;
+        gameStatus = BEGINNING;
         point = 0;
-    }
-
-    public static void main(String[] args) {
-        Craps craps = new Craps(new FairDice(6));
-        do {
-//            ArrayList
-            craps.play();
-            System.out.println(craps.point);
-            System.out.println(craps.dices);
-            System.out.println(craps.gameStatus);
-        } while (craps.getGameStatus().equals(CONTINUE));
     }
 
     public void play() {
@@ -47,7 +35,7 @@ public class Craps {
         // calculating sum of all dices
         int sumOfDice = rollDices().stream().mapToInt(Integer::intValue).sum();
 
-        if (gameStatus == BEGINING) { //first round checks by first rounds rules
+        if (gameStatus == BEGINNING) { //first round checks by first rounds rules
             switch (sumOfDice) {
                 case SEVEN:
                 case YO_LEVEN:

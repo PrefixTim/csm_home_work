@@ -12,7 +12,7 @@ public class Garage
       Scanner input = new Scanner( System.in );
       
       double totalReceipts = 0.0; // total fee collected for the day
-      double fee; // the charge for the current customer
+      double fee = 0; // the charge for the current customer
       double hours; // hours for the current customer
             
       // read in the first customer's hours

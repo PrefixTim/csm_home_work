@@ -1,3 +1,3 @@
 package lab11.game.craps.logic;
 
-enum GameStatus {BEGINING, CONTINUE, WON, LOST}
+enum GameStatus {BEGINNING, CONTINUE, FINISHED}
