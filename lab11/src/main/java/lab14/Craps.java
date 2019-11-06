@@ -1,4 +1,4 @@
-package lab11;
+package lab14;
 //Tim Malko
 // Craps.java
 // Craps class simulates the dice game craps.

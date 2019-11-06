@@ -1,4 +1,4 @@
-package lab11.game.craps.dice;
+package lab14.game.craps.dice;
 
 public class ChitDice implements Dice {
     private final int rolledNum;

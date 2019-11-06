@@ -1,6 +1,6 @@
-package lab11;
+package lab14;
 
-import lab11.game.ui.Game;
+import lab14.game.ui.Game;
 
 import javax.swing.*;
 import java.io.IOException;

@@ -1,11 +1,11 @@
-package lab11.game.craps.logic;
+package lab14.game.craps.logic;
 
-import lab11.game.craps.dice.Dice;
+import lab14.game.craps.dice.Dice;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static lab11.game.craps.logic.GameStatus.*;
+import static lab14.game.craps.logic.GameStatus.*;
 
 public class Craps {
     private static final int SNAKE_EYES = 2;

@@ -1,4 +1,4 @@
-package lab11.game.ui.prompter;
+package lab14.game.ui.prompter;
 
 /**
  * have different aggression levels

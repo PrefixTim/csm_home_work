@@ -1,4 +1,4 @@
-package lab11.game.craps.dice;
+package lab14.game.craps.dice;
 
 public abstract class NSideDice implements Dice{
     private int sides;
