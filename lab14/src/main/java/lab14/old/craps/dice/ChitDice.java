@@ -1,4 +1,4 @@
-package lab14.game.craps.dice;
+package lab14.old.craps.dice;
 
 public class ChitDice implements Dice {
     private final int rolledNum;
@@ -10,11 +10,6 @@ public class ChitDice implements Dice {
     @Override
     public int rollDice() {
         return getRolledNum();
-    }
-
-    @Override
-    public int getSides() {
-        return 1;
     }
 
     @Override

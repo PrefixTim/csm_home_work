@@ -1,4 +1,4 @@
-package lab14.game.craps.dice;
+package lab14.old.craps.dice;
 
 import java.util.Random;
 

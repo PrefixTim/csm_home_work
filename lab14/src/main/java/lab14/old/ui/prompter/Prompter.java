@@ -1,4 +1,4 @@
-package lab14.game.ui.prompter;
+package lab14.old.ui.prompter;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
