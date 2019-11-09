@@ -3,7 +3,7 @@ package lab14.old.craps.logic;
 import lab14.old.craps.dice.Dice;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import static lab14.old.craps.logic.GameStatus.*;
 
@@ -15,7 +15,7 @@ public class Craps {
     private static final int BOX_CARS = 12;
     private GameStatus gameStatus;
     private int point;
-    private List<Dice> dices;
+    private Collection<Dice> dices;
 
     public Craps(Dice...  dices) {
         this.dices = Arrays.asList(dices);
@@ -57,7 +57,7 @@ public class Craps {
         }
     }
 
-    public List<Dice> getDices() {
+    private Collection<Dice> getDices() {
         return dices;
     }
 

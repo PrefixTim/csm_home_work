@@ -2,10 +2,9 @@ package lab14.game.logic.games;
 
 import lab14.game.logic.dices.Dice;
 
-import java.util.List;
+import java.util.Collection;
 
-
-public class Craps implements DiceGame<GameResult, List<Dice<Integer>>> {
+public class Craps implements DiceGame<Boolean, GameResult, Integer> {
     private static final int MAX_GAME_LENGTH = 210;
     private static final int SNAKE_EYES = 2;
     private static final int TREY = 3;
@@ -15,18 +14,24 @@ public class Craps implements DiceGame<GameResult, List<Dice<Integer>>> {
     private boolean ended;
     private int length;
     private int point;
+    private Collection<Dice<Integer>> dices;
+
+    public Craps(Collection<Dice<Integer>> dices) {
+        if(dices.size() != 2) throw new IllegalStateException("Wrong amount of dice");
+        this.dices = dices;
+    }
 
     @Override
-    public GameResult play(List<Dice<Integer>> input) {
-        if(isEnded())
-            throw new IllegalStateException("The game is ended");
+    public GameResult play(Boolean giveUp) {
+        if (isEnded()) throw new IllegalStateException("The game is ended");
+        if (giveUp) return lost();
         length++;
-        int sumOfDice = input.stream().mapToInt(Dice<Integer>::roll).sum();
-        if (length == 1) { //first round checks by first rounds rules
+        int sumOfDice = dices.stream().mapToInt(Dice::roll).sum();
+        if (point == 0) { //first round checks by first rounds rules
             switch (sumOfDice) {
                 case SEVEN:
                 case YO_LEVEN:
-                    return  won();// won at seven and eleven
+                    return won();// won at seven and eleven
                 case SNAKE_EYES:
                 case TREY:
                 case BOX_CARS:
@@ -35,9 +40,9 @@ public class Craps implements DiceGame<GameResult, List<Dice<Integer>>> {
                     setPoint(sumOfDice);
                     break;
             }
-        } else if(length <= MAX_GAME_LENGTH){ // second round
+        } else if (length <= MAX_GAME_LENGTH) { // second round
             if (sumOfDice == point) //if rolled = point game won
-                return  won();
+                return won();
             else if (sumOfDice == SEVEN) //if
                 return lost();
         } else {
@@ -59,11 +64,11 @@ public class Craps implements DiceGame<GameResult, List<Dice<Integer>>> {
         return ended;
     }
 
-    private GameResult won(){
+    private GameResult won() {
         return end(true);
     }
 
-    private GameResult lost(){
+    private GameResult lost() {
         return end(false);
     }
 
@@ -79,5 +84,10 @@ public class Craps implements DiceGame<GameResult, List<Dice<Integer>>> {
 
     private void setPoint(int point) {
         this.point = point;
+    }
+
+    @Override
+    public void setDices(Collection<Dice<Integer>> dices) {
+        this.dices = dices;
     }
 }
