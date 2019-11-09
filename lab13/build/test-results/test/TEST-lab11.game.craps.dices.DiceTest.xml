@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lab11.game.craps.dices.DiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-10-30T20:01:53" hostname="DESKTOP-M3PAVOD" time="19.534">
+  <properties/>
+  <testcase name="rollDice[0]" classname="lab11.game.craps.dices.DiceTest" time="6.821"/>
+  <testcase name="rollDice[1]" classname="lab11.game.craps.dices.DiceTest" time="3.138"/>
+  <testcase name="rollDice[2]" classname="lab11.game.craps.dices.DiceTest" time="4.373"/>
+  <testcase name="rollDice[3]" classname="lab11.game.craps.dices.DiceTest" time="5.197"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
