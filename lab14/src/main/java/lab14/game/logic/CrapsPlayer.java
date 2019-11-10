@@ -1,19 +1,17 @@
 package lab14.game.logic;
 
-import com.sun.tools.javac.util.List;
 import lab14.game.logic.dices.Dice;
 import lab14.game.logic.games.Craps;
-import lab14.game.logic.games.DiceGame;
 import lab14.game.logic.games.GameResult;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class GameTable implements Runnable {
+public class CrapsPlayer implements Runnable {
     private ConcurrentLinkedQueue<GameResult> queue;
-    private DiceGame game;
+    private Craps game;
 
-    public GameTable(ConcurrentLinkedQueue<GameResult> queue, DiceGame game) {
+    public CrapsPlayer(ConcurrentLinkedQueue<GameResult> queue, Craps game) {
         this.queue = queue;
         this.game = game;
     }
@@ -23,8 +21,8 @@ public class GameTable implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             synchronized (game) {
                 GameResult gameResult = null;
-                while (craps.isEnded()) {
-                    gameResult = craps.play(false);
+                while (game.isEnded()) {
+                    gameResult = game.play(false);
                 }
                 if (gameResult != null)
                     queue.add(gameResult);
@@ -32,14 +30,14 @@ public class GameTable implements Runnable {
         }
     }
 
-    public void setDices(Collection<Dice> dices) {
+    public void setDices(Collection<Dice<Integer>> dices) {
         synchronized (game) {
             if (game.isEnded())
                 game.setDices(dices);
         }
     }
 
-    public void setGame(DiceGame game) {
+    public void setGame(Craps game) {
         this.game = game;
     }
 }
