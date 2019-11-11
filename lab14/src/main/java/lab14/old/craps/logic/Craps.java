@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static lab14.old.craps.logic.GameStatus.*;
-
+@Deprecated
 public class Craps {
     private static final int SNAKE_EYES = 2;
     private static final int TREY = 3;

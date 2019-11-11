@@ -1,5 +1,6 @@
 package lab14.old.craps.dice;
 
+@Deprecated
 public class ChitDice implements Dice {
     private final int rolledNum;
 

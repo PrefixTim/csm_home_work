@@ -1,6 +1,7 @@
 package lab14.old.craps.dice;
 
 import java.util.Random;
+@Deprecated
 
 public class FairDice extends NSideDice {
     private Random random = new Random();

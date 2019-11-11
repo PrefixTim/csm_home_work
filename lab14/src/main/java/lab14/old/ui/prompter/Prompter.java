@@ -9,6 +9,7 @@ import java.util.Random;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
+@Deprecated
 public class Prompter {
     private static final int MIN_N = 2;
     private static final int MAX_N = 50;

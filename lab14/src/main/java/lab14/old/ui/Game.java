@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.Properties;
 
+@Deprecated
 public class Game extends JFrame {
     private JPanel mainPanel;
     private JButton playBtn;

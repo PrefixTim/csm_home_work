@@ -1,5 +1,5 @@
 package lab14.old.craps.dice;
-
+@Deprecated
 public abstract class NSideDice implements Dice{
     private int sides;
     private int number;
@@ -10,7 +10,6 @@ public abstract class NSideDice implements Dice{
         setNumber(number);
     }
 
-    @Override
     public int getSides() {
         return sides;
     }

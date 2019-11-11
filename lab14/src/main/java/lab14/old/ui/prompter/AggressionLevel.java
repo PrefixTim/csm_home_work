@@ -3,6 +3,7 @@ package lab14.old.ui.prompter;
 /**
  * have different aggression levels
  */
+@Deprecated
 public enum AggressionLevel {
     BENIGNANT,
     CALM,
