@@ -4,6 +4,7 @@ import lab14.game.logic.games.Craps;
 import lab14.game.logic.games.GameResult;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Logger;
 
 public class GameTable implements Runnable{
     private ConcurrentLinkedQueue<GameResult> queue;
@@ -22,4 +23,10 @@ public class GameTable implements Runnable{
             }
         }
     }
+
+    public void setCraps(Craps craps) {
+        this.craps = craps;
+    }
+
+    public static final Logger LOGGER = Logger.getLogger(GameTable.class.getName());
 }

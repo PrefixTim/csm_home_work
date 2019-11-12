@@ -39,6 +39,7 @@ public class DiceFromConfig {
         System.out.println(config.getString("game1.title"));
         System.out.println(getDicesFromConfig(config.getConfig("game1")));
     }
+
     private static void logCreation(DICES dice){
         LOGGER.log(Level.FINE, "Dice of type %s created", dice);
     }
