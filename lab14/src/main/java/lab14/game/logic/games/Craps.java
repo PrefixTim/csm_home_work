@@ -4,7 +4,7 @@ import lab14.game.logic.dices.Dice;
 
 import java.util.Collection;
 
-public class Craps implements DiceGame<Boolean, GameResult, Integer> {
+public class Craps {
     private static final int MAX_GAME_LENGTH = 210;
     private static final int SNAKE_EYES = 2;
     private static final int TREY = 3;
@@ -15,70 +15,86 @@ public class Craps implements DiceGame<Boolean, GameResult, Integer> {
     private int length;
     private int point;
     private Collection<Dice<Integer>> dices;
+    private GameResult result;
 
     public Craps(Collection<Dice<Integer>> dices) {
         if(dices.size() != 2) throw new IllegalStateException("Wrong amount of dice");
         this.dices = dices;
     }
 
-    @Override
-    public GameResult play(Boolean giveUp) {
+    /**
+     * simulates craps play
+     * @return
+     */
+    public GameResult play() {
         if (isEnded()) throw new IllegalStateException("The game is ended");
-        if (giveUp) return lost();
-        length++;
-        int sumOfDice = dices.stream().mapToInt(Dice::roll).sum();
-        if (point == 0) { //first round checks by first rounds rules
-            switch (sumOfDice) {
-                case SEVEN:
-                case YO_LEVEN:
-                    return won();// won at seven and eleven
-                case SNAKE_EYES:
-                case TREY:
-                case BOX_CARS:
-                    return lost();
-                default:
-                    setPoint(sumOfDice);
-                    break;
+        while (isEnded()) {
+            length++;
+            int sumOfDice = dices.stream().mapToInt(Dice::roll).sum();
+            if (point == 0) { //first round checks by first rounds rules
+                switch (sumOfDice) {
+                    case SEVEN:
+                    case YO_LEVEN:
+                        won();// won at seven and eleven
+                        break;
+                    case SNAKE_EYES:
+                    case TREY:
+                    case BOX_CARS:
+                        lost();
+                        break;
+                    default:
+                        setPoint(sumOfDice);
+                        break;
+                }
+            } else if (length <= MAX_GAME_LENGTH) { // second round
+                if (sumOfDice == point) //if rolled = point game won
+                    won();
+                else if (sumOfDice == SEVEN) //if seven lost
+                    lost();
+            } else {
+                lost();
             }
-        } else if (length <= MAX_GAME_LENGTH) { // second round
-            if (sumOfDice == point) //if rolled = point game won
-                return won();
-            else if (sumOfDice == SEVEN) //if
-                return lost();
-        } else {
-            return lost();
         }
-        return null;
+        return getResult();
     }
 
-    @Override
-    public Boolean restart() {
-        point = 0;
-        length = 0;
-        ended = false;
-        return true;
+    public void restart() {
+        setLength(0);
+        setResult(null);
+        setEnded(false);
+        setPoint(0);
     }
 
-    @Override
     public Boolean isEnded() {
         return ended;
     }
 
-    private GameResult won() {
-        return end(true);
+    private void won() {
+        end(true);
     }
 
-    private GameResult lost() {
-        return end(false);
+    private void lost() {
+        end(false);
     }
 
-    private GameResult end(boolean won) {
+    /**
+     * ends game and sets a game result
+     * @param result is game won or not
+     */
+    private void end(boolean result) {
         setEnded(true);
-        return new GameResult(won, length);
-
+        this.result = new GameResult(result, length);
     }
 
-    public void setEnded(boolean ended) {
+    private void setLength(int length) {
+        this.length = length;
+    }
+
+    private void setResult(GameResult result) {
+        this.result = result;
+    }
+
+    private void setEnded(boolean ended) {
         this.ended = ended;
     }
 
@@ -86,8 +102,13 @@ public class Craps implements DiceGame<Boolean, GameResult, Integer> {
         this.point = point;
     }
 
-    @Override
     public void setDices(Collection<Dice<Integer>> dices) {
         this.dices = dices;
+    }
+
+    public GameResult getResult() {
+        if (!isEnded()) throw  new IllegalStateException("The games is not ended yet");
+        if (result == null) throw new IllegalStateException("Game ended but result is not set");
+        return result;
     }
 }

@@ -9,7 +9,7 @@ public class LoopAdventures {
      * @param args number of steps
      */
     public static void main(String[] args) {
-        Long n = Long.parseLong(args[0]);
+        Long n = Long.parseLong("1000");
         Long powOf2 = 1L;
         Long fact = 1L;
         System.out.printf("%2s\t%10s\t%30s\n", "N", "N^2", "N!");
