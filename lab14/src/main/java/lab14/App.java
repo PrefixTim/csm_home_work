@@ -7,7 +7,6 @@ import lab14.game.logic.games.GameResult;
 import lab14.game.ui.MainFrame;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,10 +20,10 @@ public class App {
     private static void run() {
         Config config = ConfigFactory.parseResources("app.conf");
         ConcurrentLinkedQueue<GameResult> queue = new ConcurrentLinkedQueue<>();
-        AtomicLong nToDo = new AtomicLong(config.getLong("todo");
-        Collection<GameTable> tables = config.getConfigList("tables").stream()
+        AtomicLong nToDo = new AtomicLong(config.getLong("game1.todo"));
+        Collection<GameTable> tables = config.getConfigList("game1.tables").stream()
                 .map(config1 -> GameTable.getGameTableFromConfig(queue, nToDo, config1)).collect(Collectors.toList());
-        MainFrame mainFrame = new MainFrame(tables, queue);
+        MainFrame mainFrame = new MainFrame(tables, queue, nToDo);
         mainFrame.setVisible(true);
     }
 }

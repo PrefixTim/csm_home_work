@@ -1,6 +1,7 @@
 package lab14.game.logic;
 
 import com.typesafe.config.Config;
+import lab14.game.logic.dices.DiceFromConfig;
 import lab14.game.logic.games.Craps;
 import lab14.game.logic.games.GameResult;
 
@@ -38,6 +39,7 @@ public class GameTable implements Runnable {
     }
 
     public static GameTable getGameTableFromConfig(ConcurrentLinkedQueue<GameResult> queue, AtomicLong nToDo, Config config) {
-
+        Craps craps = new Craps(DiceFromConfig.getDicesFromConfig(config.getConfig("table")));
+        return new GameTable(queue, nToDo, craps);
     }
 }

@@ -3,10 +3,7 @@ package lab14.game.logic.dices;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class DiceFromConfig {
@@ -18,11 +15,9 @@ public class DiceFromConfig {
         switch (DICES.valueOf(config.getString("type"))) {
             case CHIT:
                 dice = new ChitDice<>(config.getInt("num"));
-                logCreation(DICES.CHIT);
                 break;
             case REGULAR:
                 dice = new RegularDice(config.getInt("sides"));
-                logCreation(DICES.REGULAR);
                 break;
             default:
                 throw new IllegalArgumentException("Wrong type of Dice");
@@ -40,10 +35,5 @@ public class DiceFromConfig {
         System.out.println(getDicesFromConfig(config.getConfig("game1")));
     }
 
-    private static void logCreation(DICES dice){
-        LOGGER.log(Level.FINE, "Dice of type %s created", dice);
-    }
-
-    private static final Logger LOGGER = Logger.getLogger(DiceFromConfig.class.getName());
     private  enum DICES{CHIT, REGULAR};
 }
