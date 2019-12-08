@@ -10,6 +10,6 @@ class Solution {
     }
     private class group {
         int val;
-        String name;
+
     }
 }

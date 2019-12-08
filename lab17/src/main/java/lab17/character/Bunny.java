@@ -1,28 +1,34 @@
 package lab17.character;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import lab17.ImageUtils;
 
-public class Bunny extends Point {
-    private State state = State.STATE_JUMPING;
-    private BunnyKeyListener keyListener;
-    private Dimension dimension;
+import java.awt.*;
+
+
+/**
+ * Bunny
+ *
+ * @since 3, 12/4/2019 1:25pm
+ */
+public class Bunny {
     private Image image;
     private Image mirror;
     private boolean mirrored = false;
-    private double dy = 0;
-    private double dx = 0;
 
-    public Bunny(Image image, Image reflect, Dimension dimension, int[] buttons) {
-//        setImage(image, dimension);k
-        this.keyListener = new BunnyKeyListener(this, buttons[0], buttons[1], buttons[2], buttons[3]);
-        this.image = image;
-        this.mirror = reflect;
+    private Dimension dimension;
+    private Vector2D position;
+    private Vector2D velocity;
+    private Vector2D acceleration;
+
+    private State state = State.JUMPING;
+
+    public Bunny(Image image, Image reflect, Dimension dimension, Vector2D position, Vector2D velocity, Vector2D acceleration) {
         this.dimension = dimension;
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(getImage(), x, y, dimension.width, dimension.height, null);
+        this.image = ImageUtils.scaleImage(image, dimension);
+        this.mirror = ImageUtils.scaleImage(reflect, dimension);
+        setPosition(position);
+        setVelocity(velocity);
+        setAcceleration(acceleration);
     }
 
     public Image getImage() {
@@ -30,43 +36,12 @@ public class Bunny extends Point {
             return mirror;
         return image;
     }
-//    public void setImage(Image image, Dimension dimension) {
-//        this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
-//        this.dimension = dimension;
-//
-////        BufferedImage bufferedImage = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_RGB);
-////        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-////        tx.translate(-image.getWidth(null), 0);
-////        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-////        this.mirror = op.filter(bufferedImage, null);
-//    }
 
-    public void translate() {
-        if (dx > 0 != mirrored)
+    public void translate(double dt) {
+        position.translate(velocity, dt, true);
+        velocity.translate(acceleration, dt, true);
+        if (position.getX() > 0 != mirrored)
             mirrored = !mirrored;
-
-        translate((int) dx, (int) dy);
-    }
-
-    public void setTranslation(int dx, int dy) {
-        setDx(dx);
-        setDy(dy);
-    }
-
-    public double getDx() {
-        return dx;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    public double getDy() {
-        return dy;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
     }
 
     public Dimension getDimension() {
@@ -81,56 +56,31 @@ public class Bunny extends Point {
         this.state = state;
     }
 
-    public BunnyKeyListener getKeyListener() {
-        return keyListener;
+    public Vector2D getPosition() {
+        return position;
     }
 
-    private static class BunnyKeyListener {
-        private static final double DX = 1;
-        private static final double DY = 0.7;
-        private Bunny bunny;
-        private int up;
-        private int down;
-        private int left;
-        private int right;
-
-        public BunnyKeyListener(Bunny bunny, int up, int down, int left, int right) {
-            this.bunny = bunny;
-            this.up = up;
-            this.down = down;
-            this.left = left;
-            this.right = right;
-        }
-
-        public void listen(KeyEvent e, boolean isPressed) {
-            int code = e.getKeyCode();
-            switch (bunny.getState()) {
-                case STATE_JUMPING:
-                    if (code == up) {
-                        bunny.setDy(bunny.getDy() - DY);
-                    } else if (code == down) {
-                        bunny.setDy(bunny.getDy() + 1.05);
-                    } else if (code == left) {
-                        if (bunny.getDx() > -15)
-                            if (bunny.getDx() > 0)
-                                bunny.setDx(bunny.getDx() / 2 - DX);
-                            else
-                                bunny.setDx(bunny.getDx() - DX);
-
-                    } else if (code == right) {
-                        if (bunny.getDx() < 15)
-                            if (bunny.getDx() < 0)
-                                bunny.setDx(bunny.getDx() / 2 + DX);
-                            else
-                                bunny.setDx(bunny.getDx() + DX);
-                    }
-                case STATE_STANDING:
-                    if (code == up) {
-                        bunny.setDy(-25);
-                        bunny.setState(State.STATE_JUMPING);
-                    }
-            }
-        }
+    public void setPosition(Vector2D position) {
+        this.position = position;
+        if (position.getX() > 0 != mirrored)
+            mirrored = !mirrored;
     }
+
+    public Vector2D getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2D velocity) {
+        this.velocity = velocity;
+    }
+
+    public Vector2D getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector2D acceleration) {
+        this.acceleration = acceleration;
+    }
+
 }
 

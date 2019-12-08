@@ -10,13 +10,15 @@ import java.awt.event.ActionListener;
  * Manages the buttons and keyboard events.
  */
 class CarrotFrame extends JFrame implements ActionListener {
+    public static final int DELAY = 16; // milliseconds
     private CarrotComponent carrot;
     private JButton start;
     private JButton fast;
     private JButton slow;
     private int delay;
+    private double dt;
     private javax.swing.Timer timer;
-    public static final int DELAY = 50; // milliseconds
+    private MyKeyListener keyListener = new MyKeyListener();
 
     public CarrotFrame() {
         setTitle("Carrot");
@@ -25,6 +27,7 @@ class CarrotFrame extends JFrame implements ActionListener {
         carrot = new CarrotComponent();
         content.add(carrot, BorderLayout.CENTER);
         carrot.setFocusable(true);
+        carrot.addKeyListener(keyListener);
         JPanel panel = new JPanel();
         start = new JButton("Start");
         start.addActionListener(this);
@@ -39,23 +42,31 @@ class CarrotFrame extends JFrame implements ActionListener {
         panel.add(slow);
         slow.setFocusable(false);
         delay = DELAY;
+        dt = (double) delay/1000;
         timer = new javax.swing.Timer(delay, this);
         content.add(panel, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         carrot.requestFocusInWindow();
-        setVisible(true);
+    }
+
+    public static void main(String... args) {
+        CarrotFrame frame = new CarrotFrame();
+        frame.setVisible(true);
+
     }
 
     // Handle timer and button events
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(timer)) {
-            carrot.tick();
+            carrot.gameLoop(keyListener.getKeyPressed(), dt);
         } else if (e.getSource().equals(fast)) {
             delay = (int) (delay * 0.90);
+            dt = (double) delay/1000;
             timer.setDelay(delay);
         } else if (e.getSource().equals(slow)) {
             delay = (int) (delay / 0.90);
+            dt = (double)delay/1000;
             timer.setDelay(delay);
         } else if (e.getSource().equals(start)) {
             carrot.reset();
@@ -63,22 +74,4 @@ class CarrotFrame extends JFrame implements ActionListener {
         }
     }
 
-
-
-    public static void main(String[] args) {
-        CarrotFrame frame = new CarrotFrame();
-//        T t = frame::r;
-//        System.out.println(t.t());
-
-        int[] s = new int[]{1, 3};
-        System.out.println(s.getClass());
-    }
-
-    int r() {
-        return 2;
-    }
-
-    interface T {
-        int t();
-    }
 }
