@@ -127,22 +127,22 @@ public class Vector {
     public Vector approach(Vector goal, Vector speed, double k) {
         if (!(this.size() == goal.size() && goal.size() == speed.size()))
             throw new IllegalArgumentException("this, goal, speed vector's sizes must match");
-        Vector dif = Vector.sub(goal, this);
         for (int i = 0; i < size(); i++) {
-            if (dif.get(i) > speed.get(i)) {
-                this.set(i, this.get(i) + k * speed.get(i));
-            } else if (-dif.get(i) > speed.get(i)) {
-                this.set(i, this.get(i) - k * speed.get(i));
-            } else {
-                this.set(i, goal.get(i));
-            }
-            keepWithBoarders(i);
+            approach(goal.get(i), k * speed.get(i), i);
         }
         return this;
     }
 
-    private void approach(double goal, double speed, int i) {
-
+    public void approach(double goal, double speed, int i) {
+        double dif = goal - this.get(i);
+        if (dif > speed) {
+            this.set(i, this.get(i) + speed);
+        } else if (-dif > speed) {
+            this.set(i, get(i) - speed);
+        } else {
+            this.set(i, goal);
+        }
+        keepWithBoarders(i);
     }
 
     public int size() {

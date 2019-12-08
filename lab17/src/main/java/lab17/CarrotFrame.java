@@ -24,6 +24,7 @@ class CarrotFrame extends JFrame implements ActionListener {
         setTitle("Carrot");
         Container content = getContentPane();
         content.setLayout(new BorderLayout());
+        content.setBackground(new Color(50, 150, 50));
         carrot = new CarrotComponent();
         content.add(carrot, BorderLayout.CENTER);
         carrot.setFocusable(true);
@@ -42,7 +43,7 @@ class CarrotFrame extends JFrame implements ActionListener {
         panel.add(slow);
         slow.setFocusable(false);
         delay = DELAY;
-        dt = (double) delay/1000;
+        dt = (double) delay / 1000;
         timer = new javax.swing.Timer(delay, this);
         content.add(panel, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,11 +63,11 @@ class CarrotFrame extends JFrame implements ActionListener {
             carrot.gameLoop(keyListener.getKeyPressed(), dt);
         } else if (e.getSource().equals(fast)) {
             delay = (int) (delay * 0.90);
-            dt = (double) delay/1000;
+            dt = (double) delay / 1000;
             timer.setDelay(delay);
         } else if (e.getSource().equals(slow)) {
             delay = (int) (delay / 0.90);
-            dt = (double)delay/1000;
+            dt = (double) delay / 1000;
             timer.setDelay(delay);
         } else if (e.getSource().equals(start)) {
             carrot.reset();

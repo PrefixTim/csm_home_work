@@ -2,8 +2,8 @@ package lab17;
 
 import lab17.character.Bunny;
 import lab17.character.KeyHandler;
+import lab17.character.State;
 import lab17.character.Vector2D;
-import sun.font.TextLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +19,12 @@ import static lab17.ImageUtils.scaleImage;
  * Implements the main component for the carrot game.
  */
 public class CarrotComponent extends JComponent {
-    public static final int SIZE = 1000; // initial size
+    public static final int SIZE = 800; // initial size
     public static final int PIXELS = 50; // square size per image
     public static final Vector2D GRAVITY = new Vector2D(0, 300); // gravity move
     public static final int CARROTS = 20; // number of carrots
     private static final Vector2D BOTTOM_BOUNCE = new Vector2D(0.98, -0.8);
-    private static final Vector2D SIDE_BOUNCE = new Vector2D(-0.9, 1.2);
+    private static final Vector2D SIDE_BOUNCE = new Vector2D(-0.9, 1);
     private ArrayList<Point> myPoints = new ArrayList<>(); // x,y upper left of each carrot
     private Image carrotImage;
     private List<Bunny> bunnies = new ArrayList<>();
@@ -32,28 +32,24 @@ public class CarrotComponent extends JComponent {
 
     public CarrotComponent() {
         setPreferredSize(new Dimension(SIZE, SIZE));
-
-        // getScaledInstance( ) gives us re-sized version of the image --
-        // speeds up the drawImage( ) if the image is already the right size
-        // See paintComponent( )
-
+        setBackground(Color.GREEN);
         carrotImage = scaleImage(readImage("carrot.png"), new Dimension(PIXELS, PIXELS));
     }
 
     private void addBunny(int x, int up, int down, int left, int right) {
-        Vector2D pos = new Vector2D(x, 0);
+        Vector2D pos = new Vector2D(x, getHeight() - PIXELS);
         pos.setMin(0, 0);
         pos.setMax(getWidth() - PIXELS, getHeight() - PIXELS);
         Vector2D vel = new Vector2D(0, 0);
-        vel.setMin(-400, -400);
-        vel.setMax(400, 400);
+        vel.setMin(-getHeight(), -getHeight());
+        vel.setMax(getHeight(), getHeight());
         Bunny bunny = new Bunny(
                 readImage("bunny.png"),
                 readImage("bunnyM.png"),
                 new Dimension(PIXELS, PIXELS),
                 pos,
                 vel,
-                GRAVITY);
+                GRAVITY.clone());
         keyHandlers.add(new KeyHandler(bunny, up, down, left, right));
         bunnies.add(bunny);
     }
@@ -67,7 +63,7 @@ public class CarrotComponent extends JComponent {
 
     // Reset things for the start of a game
     public void reset() {
-        JOptionPane.showMessageDialog(this, String.format("Player 1: %d; Player 2: %d;", 0, 0));
+//        JOptionPane.showMessageDialog(this, String.format("Player 1: %d; Player 2: %d;", 0, 0));
         myPoints.clear(); // removes all the points
         for (int i = 0; i < CARROTS; i++) {
             myPoints.add(randomPoint());
@@ -100,6 +96,12 @@ public class CarrotComponent extends JComponent {
             pos.setY(0);
             bunny.getVelocity().mul(BOTTOM_BOUNCE);
         }
+        if(bunny.getState() == State.JUMPING && pos.getY() > getHeight() - bunny.getDimension().getHeight() - 8 && Math.abs(bunny.getVelocity().getY()) < 80){
+            bunny.setState(State.STANDING);
+            bunny.getAcceleration().mul(0);
+            bunny.getVelocity().approachY(0, 80);
+            pos.setY(getHeight() - bunny.getDimension().height);
+        }
 
         d = bunny.getVelocity().getX() * dt;
 
@@ -109,8 +111,9 @@ public class CarrotComponent extends JComponent {
         } else if (pos.getX() + d < 0) {
             pos.setX(0);
             bunny.getVelocity().mul(SIDE_BOUNCE);
-
         }
+
+
         bunny.translate(dt);
         checkCollisions(bunny);
     }

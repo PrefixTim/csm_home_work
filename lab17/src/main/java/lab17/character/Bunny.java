@@ -22,6 +22,8 @@ public class Bunny {
 
     private State state = State.JUMPING;
 
+    private int score = 0;
+
     public Bunny(Image image, Image reflect, Dimension dimension, Vector2D position, Vector2D velocity, Vector2D acceleration) {
         this.dimension = dimension;
         this.image = ImageUtils.scaleImage(image, dimension);
@@ -40,7 +42,7 @@ public class Bunny {
     public void translate(double dt) {
         position.translate(velocity, dt, true);
         velocity.translate(acceleration, dt, true);
-        if (position.getX() > 0 != mirrored)
+        if (velocity.getX() > 0 != mirrored)
             mirrored = !mirrored;
     }
 
@@ -82,5 +84,12 @@ public class Bunny {
         this.acceleration = acceleration;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }
 
