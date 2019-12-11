@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /*
+ * Tim Malko CIS 254
  * Implements the Frame for the carrot game.
  * Manages the buttons and keyboard events.
  */
